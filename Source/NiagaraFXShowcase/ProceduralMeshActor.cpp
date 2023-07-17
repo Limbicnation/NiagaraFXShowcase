@@ -19,17 +19,16 @@ void AProceduralMeshActor::OnConstruction(const FTransform& Transform)
 	if (InstancedStaticMeshComponent->GetInstanceCount() == 0)
 	{
 		TArray<FTransform> Transforms;
-		Transforms.Empty(10);
+		Transforms.Empty(NumInstances);
 
-		for (int Index = 0; Index < 10; ++Index)
+		for (int Index = 0; Index < NumInstances; ++Index)
 		{
-			Transforms.Add(FTransform(FVector(0.0f, 100.0f * Index, 0.0f)));
+			Transforms.Add(FTransform(FVector(0.0f, Offset * Index, 0.0f)));
 		}
 
 		InstancedStaticMeshComponent->AddInstances(Transforms, false);
 	}
 }
-
 
 void AProceduralMeshActor::BeginPlay()
 {
@@ -39,4 +38,12 @@ void AProceduralMeshActor::BeginPlay()
 void AProceduralMeshActor::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
+
+	// Move the transforms
+	/*
+	for (FTransform& Transform : Transforms)
+	{
+
+	}
+	*/
 }
